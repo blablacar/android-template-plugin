@@ -15,7 +15,7 @@ import com.android.tools.idea.wizard.template.template
 val fragment
     get() = template {
         name = "Fragment Standalone"
-        description = "Create only the Fragment"
+        description = "Create the Fragment and his layout"
         minApi = 21
         category = Category.Fragment
         formFactor = FormFactor.Mobile
