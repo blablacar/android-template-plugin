@@ -1,0 +1,18 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.lbillaudbbc.androidtemplates</id>
+    <name>IntelliJ Platform Plugin android-templates</name>
+    <vendor>lbillaud-bbc</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.lbillaudbbc.androidtemplates.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.github.lbillaudbbc.androidtemplates.services.MyProjectService"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.github.lbillaudbbc.androidtemplates.listeners.MyProjectManagerListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+</idea-plugin>
