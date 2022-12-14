@@ -3,6 +3,9 @@
 
 <!-- TODO(you): Replace with a high-level description of your project here; one or two sentences max, e.g.: -->
 Minimal base template repository for BlaBlaCar's private &amp; internal repositories.
+<!-- Plugin description -->
+The aim of this plugin is to make easier the creation of the differents layer of the clean architecture Data - Domain - Presentation Layer
+<!-- Plugin description end -->
 
 <!-- TODO(you): Modify the rest of this file to describe how to use or contribute to the project. -->
 ## Install

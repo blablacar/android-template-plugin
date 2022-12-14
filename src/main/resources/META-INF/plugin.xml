@@ -1,0 +1,25 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.comuto.androidtemplates</id>
+    <name>IntelliJ Platform Plugin android-templates</name>
+    <vendor>com.comuto</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.comuto.androidtemplates.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.comuto.androidtemplates.services.MyProjectService"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+        <wizardTemplateProvider implementation="com.comuto.androidtemplates.WizardTemplateProviderImpl" />
+    </extensions>
+    <applicationListeners>
+        <listener class="com.comuto.androidtemplates.listeners.MyProjectManagerListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+</idea-plugin>
