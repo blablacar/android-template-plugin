@@ -6,7 +6,7 @@ import com.comuto.androidtemplates.manager.PackageManager
 fun createStandaloneFragment(
     packageName: String = PackageManager.packageName,
     fragmentName: String,
-    layountName: String
+    layoutName: String
 ) = """
 package $packageName
 
@@ -16,7 +16,7 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import android.view.ViewGroup
 import com.comuto.coreui.fragment.PixarFragmentV2
-import com.comuto.databinding.${layountName.toCamelCase().replace("_", "")}Binding
+import com.comuto.databinding.${layoutName.toCamelCase().replace("_", "")}Binding
 
 
 class $fragmentName : PixarFragmentV2() {
@@ -24,7 +24,7 @@ class $fragmentName : PixarFragmentV2() {
     override val title: Int
         get() = TODO()
 
-    private var _binding: ${layountName.toCamelCase().replace("_", "")}Binding? = null
+    private var _binding: ${layoutName.toCamelCase().replace("_", "")}Binding? = null
     private val binding get() = _binding!!
 
     private val toolbar: Toolbar
@@ -38,7 +38,7 @@ class $fragmentName : PixarFragmentV2() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = ${layountName.toCamelCase().replace("_", "")}Binding.inflate(inflater, container, false)
+        _binding = ${layoutName.toCamelCase().replace("_", "")}Binding.inflate(inflater, container, false)
         return binding.root
     }
 

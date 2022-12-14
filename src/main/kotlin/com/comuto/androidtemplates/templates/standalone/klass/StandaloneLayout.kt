@@ -20,6 +20,4 @@ fun createStandaloneLayoutXML()="""
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    
-    
 """.trimIndent()

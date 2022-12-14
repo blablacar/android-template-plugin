@@ -27,7 +27,7 @@ fun RecipeExecutor.standaloneFragmentTemplateRecipe(
     val pfm = ProjectFileManager(project, moduleData, packageName)
     if (pfm.init().not()) return
 
-    createStandaloneFragment(fragmentName = className, layountName = layoutName).saveClass(
+    createStandaloneFragment(fragmentName = className, layoutName = layoutName).saveClass(
         pfm.getPath(),
         packageName,
         className.asKt()
