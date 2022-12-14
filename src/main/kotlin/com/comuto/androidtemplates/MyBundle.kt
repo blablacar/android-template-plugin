@@ -1,4 +1,4 @@
-package com.github.lbillaudbbc.androidtemplates
+package com.comuto.androidtemplates
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

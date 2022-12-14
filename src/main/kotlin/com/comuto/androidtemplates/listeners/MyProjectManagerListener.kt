@@ -1,9 +1,9 @@
-package com.github.lbillaudbbc.androidtemplates.listeners
+package com.comuto.androidtemplates.listeners
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
-import com.github.lbillaudbbc.androidtemplates.services.MyProjectService
+import com.comuto.androidtemplates.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

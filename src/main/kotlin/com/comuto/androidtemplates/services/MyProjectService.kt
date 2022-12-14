@@ -1,7 +1,7 @@
-package com.github.lbillaudbbc.androidtemplates.services
+package com.comuto.androidtemplates.services
 
 import com.intellij.openapi.project.Project
-import com.github.lbillaudbbc.androidtemplates.MyBundle
+import com.comuto.androidtemplates.MyBundle
 
 class MyProjectService(project: Project) {
 

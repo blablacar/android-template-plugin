@@ -1,18 +1,25 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.lbillaudbbc.androidtemplates</id>
+    <id>com.comuto.androidtemplates</id>
     <name>IntelliJ Platform Plugin android-templates</name>
-    <vendor>lbillaud-bbc</vendor>
+    <vendor>com.comuto</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.lbillaudbbc.androidtemplates.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.lbillaudbbc.androidtemplates.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.comuto.androidtemplates.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.comuto.androidtemplates.services.MyProjectService"/>
     </extensions>
-
+    <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+        <wizardTemplateProvider implementation="com.github.alexandreruault.testplugin.WizardTemplateProviderImpl" />
+    </extensions>
     <applicationListeners>
-        <listener class="com.github.lbillaudbbc.androidtemplates.listeners.MyProjectManagerListener"
+        <listener class="com.comuto.androidtemplates.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

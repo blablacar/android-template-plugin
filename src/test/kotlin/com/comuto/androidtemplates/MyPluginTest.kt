@@ -1,4 +1,4 @@
-package com.github.lbillaudbbc.androidtemplates
+package com.comuto.androidtemplates
 
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.openapi.components.service

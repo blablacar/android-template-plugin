@@ -1,6 +1,6 @@
-package com.github.lbillaudbbc.androidtemplates.services
+package com.comuto.androidtemplates.services
 
-import com.github.lbillaudbbc.androidtemplates.MyBundle
+import com.comuto.androidtemplates.MyBundle
 
 class MyApplicationService {
 
