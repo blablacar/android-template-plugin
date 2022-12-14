@@ -16,7 +16,7 @@
         <projectService serviceImplementation="com.comuto.androidtemplates.services.MyProjectService"/>
     </extensions>
     <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
-        <wizardTemplateProvider implementation="com.github.alexandreruault.testplugin.WizardTemplateProviderImpl" />
+        <wizardTemplateProvider implementation="com.comuto.androidtemplates.WizardTemplateProviderImpl" />
     </extensions>
     <applicationListeners>
         <listener class="com.comuto.androidtemplates.listeners.MyProjectManagerListener"
