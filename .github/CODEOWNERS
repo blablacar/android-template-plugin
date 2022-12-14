@@ -1,0 +1,25 @@
+# TODO(you): Fill in the principal repository owner below, then uncomment the following line:
+# *                            @blablacar/<team-name>
+
+# If required, you can specify multiple owners, e.g.:
+# money-stuff/                 @blablacar/monetize @blablacar/payment
+
+# Later matching rules take precedence, e.g.:
+# **/money-stuff/payment-only/ @blablacar/payment
+# **/payment-only/database/    @blablacar/payment @blablacar/dbre
+
+# Strongly prefer team code owners over individuals!
+# ...but if you must, denote individuals by corporate email address (NOT GitHub username), e.g.:
+# **/hackathons/blablacat/     @blablacar/coding-night usman.akeju@blablacar.com julien.blanc@blablacar.com
+# ...NOT:
+# **/prod-1/air-pong/          @P1zzaCat92 @FluxBizz2000
+
+# For directories, don't forget to add the trailing slash, e.g.:
+# engineering-productivity/    @blablacar/ep
+# /packages/qualcium/          @blablacar/qa
+# ...NOT:
+# infra                        @blablacar/infra
+# /github/it                   @blablacar/it-ops
+
+# See additional CODEOWNERS syntax documentation here:
+# https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-code-owners#codeowners-syntax
