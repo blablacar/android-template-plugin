@@ -80,3 +80,42 @@ val viewModel
             )
         }
     }
+
+val activity
+    get() = template {
+        name = "Activity Standalone"
+        description = "Create only an Activity"
+        minApi = 21
+        category = Category.Activity
+        formFactor = FormFactor.Mobile
+        screens = listOf(WizardUiContext.MenuEntry)
+
+        val packageNameParam = defaultPackageNameParameter
+        val activityName = stringParameter {
+            name = "Activity Name"
+            default = "Activity"
+            help = "Use the class name for prefix"
+            constraints = listOf(Constraint.NONEMPTY)
+        }
+        val layoutName = stringParameter {
+            name = "Layout Name"
+            default = "layout_fragment_name"
+            help = "Use the class name for prefix"
+            constraints = listOf(Constraint.NONEMPTY)
+        }
+        widgets(
+            PackageNameWidget(packageNameParam),
+            TextFieldWidget(activityName),
+            TextFieldWidget(layoutName)
+        )
+
+        recipe = { data: TemplateData ->
+            standaloneActivityTemplateRecipe(
+                data as ModuleTemplateData,
+                packageNameParam.value,
+                activityName.value,
+                layoutName.value
+            )
+        }
+    }
+
