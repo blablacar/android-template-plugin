@@ -50,3 +50,33 @@ val fragment
             )
         }
     }
+
+val viewModel
+    get() = template {
+        name = "ViewModel Standalone"
+        description = "Create the viewModel"
+        minApi = 21
+        category = Category.Fragment
+        formFactor = FormFactor.Mobile
+        screens = listOf(WizardUiContext.MenuEntry)
+
+        val packageNameParam = defaultPackageNameParameter
+        val viewModelName = stringParameter {
+            name = "ViewModel Name"
+            default = "ViewModel"
+            help = "Use the class name for prefix"
+            constraints = listOf(Constraint.NONEMPTY)
+        }
+        widgets(
+            PackageNameWidget(packageNameParam),
+            TextFieldWidget(viewModelName),
+        )
+
+        recipe = { data: TemplateData ->
+            standaloneViewModelTemplateRecipe(
+                data as ModuleTemplateData,
+                packageNameParam.value,
+                viewModelName.value
+            )
+        }
+    }
