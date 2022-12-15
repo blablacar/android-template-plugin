@@ -15,7 +15,7 @@
         <wizardTemplateProvider implementation="com.comuto.androidtemplates.templates.WizardTemplateProviderImpl" />
     </extensions>
     <applicationListeners>
-        <listener class="com.comuto.androidtemplates.listeners.MyProjectManagerListener"
+        <listener class="com.comuto.androidtemplates.listeners.TemplatePluginManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

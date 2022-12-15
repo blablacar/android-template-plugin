@@ -3,7 +3,7 @@ package com.comuto.androidtemplates.templates.standalone
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.impl.activities.common.addAllKotlinDependencies
-import com.comuto.androidtemplates.listeners.MyProjectManagerListener
+import com.comuto.androidtemplates.listeners.TemplatePluginManagerListener
 import com.comuto.androidtemplates.manager.ProjectFileManager
 import com.comuto.androidtemplates.manager.addPackageName
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneFragment
@@ -20,7 +20,7 @@ fun RecipeExecutor.standaloneFragmentTemplateRecipe(
     layoutName: String
 ) {
     val (projectData, _, _, manifestOut) = moduleData
-    val project = MyProjectManagerListener.projectInstance ?: return
+    val project = TemplatePluginManagerListener.projectInstance ?: return
     addAllKotlinDependencies(moduleData)
     addPackageName(packageName, projectData.applicationPackage.toString())
 
