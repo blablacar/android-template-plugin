@@ -29,7 +29,7 @@ class $fragmentName : PixarFragmentV2() {
     override fun getScreenName() = TODO()
 
     companion object {
-        fun newInstance(): $fragmentName = ${fragmentName.toCamelCase()}()
+        fun newInstance(): $fragmentName = TODO()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -39,6 +39,11 @@ class $fragmentName : PixarFragmentV2() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 """.trimIndent()
