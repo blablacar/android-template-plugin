@@ -25,10 +25,6 @@ class $viewModelName(
     private val _liveEvent = SingleLiveEvent<${ viewModelName}Event>()
     val liveEvent: LiveData<${viewModelName}Event > get () = _liveEvent
 
-
-    fun init() {
-        _liveState.value = ${viewModelName}State.InitialState
-    }
 }
 
 sealed class ${viewModelName}State {
@@ -37,5 +33,23 @@ sealed class ${viewModelName}State {
 
 sealed class ${viewModelName}Event {
 }
+""".trimIndent()
+
+fun createViewModelFactory(
+    packageName: String = PackageManager.packageName,
+    viewModelName: String
+) = """
+package $packageName
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
+
+@Suppress("UNCHECKED_CAST")
+class ${viewModelName}Factory @Inject constructor(): ViewModelProvider.Factory {
+    override fun <T: ViewModel> create(modelClass: Class<T>): T =
+    ${viewModelName}() as T
+}
+    
 """.trimIndent()
 

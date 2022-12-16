@@ -9,6 +9,7 @@ import com.comuto.androidtemplates.manager.addPackageName
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneFragment
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneLayoutXML
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneViewModel
+import com.comuto.androidtemplates.templates.standalone.klass.createViewModelFactory
 import com.comuto.androidtemplates.utils.asKt
 import com.comuto.androidtemplates.utils.asXml
 import com.comuto.androidtemplates.utils.saveClass
@@ -55,6 +56,11 @@ fun RecipeExecutor.standaloneViewModelTemplateRecipe(
         pfm.getPath(),
         packageName,
         viewModelName.asKt()
+    )
+    createViewModelFactory(packageName=packageName, viewModelName = viewModelName).saveClass(
+        pfm.getPath(),
+        packageName,
+        "${viewModelName}Factory".asKt()
     )
 }
 
