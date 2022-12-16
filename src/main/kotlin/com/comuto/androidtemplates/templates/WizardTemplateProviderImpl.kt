@@ -9,5 +9,7 @@ import com.comuto.androidtemplates.templates.standalone.viewModel
 class WizardTemplateProviderImpl : WizardTemplateProvider() {
     override fun getTemplates(): List<Template> = listOf(
         fragment,
-        viewModel)
+        viewModel,
+        activity
+    )
 }

@@ -103,10 +103,18 @@ val activity
             help = "Use the class name for prefix"
             constraints = listOf(Constraint.NONEMPTY)
         }
+
+        val subComponentName = stringParameter {
+            name = "Set the SubComponent Name, E.G MyFeatureSubComponent"
+            default = "MyFeatureSubComponent"
+            help = "Use the class name for prefix"
+            constraints = listOf(Constraint.NONEMPTY)
+        }
         widgets(
             PackageNameWidget(packageNameParam),
             TextFieldWidget(activityName),
-            TextFieldWidget(layoutName)
+            TextFieldWidget(layoutName),
+            TextFieldWidget(subComponentName)
         )
 
         recipe = { data: TemplateData ->
@@ -114,7 +122,8 @@ val activity
                 data as ModuleTemplateData,
                 packageNameParam.value,
                 activityName.value,
-                layoutName.value
+                layoutName.value,
+                subComponentName.value
             )
         }
     }
