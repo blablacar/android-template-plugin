@@ -62,8 +62,8 @@ val viewModel
 
         val packageNameParam = defaultPackageNameParameter
         val viewModelName = stringParameter {
-            name = "ViewModel Name"
-            default = "ViewModel"
+            name = "ViewModel Name but without ViewModel as a suffix, E.G MyFeature not MyFeatureViewModel"
+            default = "MyFeature"
             help = "Use the class name for prefix"
             constraints = listOf(Constraint.NONEMPTY)
         }

@@ -15,7 +15,7 @@ import androidx.lifecycle.viewModelScope
 import com.comuto.coreui.livedata.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class $viewModelName(
+class ${viewModelName}ViewModel(
     defaultState: ${viewModelName}State = ${viewModelName}State.InitialState
 ) : ViewModel() {
 
@@ -46,9 +46,9 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class ${viewModelName}Factory @Inject constructor(): ViewModelProvider.Factory {
+class ${viewModelName}ViewModelFactory @Inject constructor(): ViewModelProvider.Factory {
     override fun <T: ViewModel> create(modelClass: Class<T>): T =
-    ${viewModelName}() as T
+    ${viewModelName}ViewModel() as T
 }
     
 """.trimIndent()

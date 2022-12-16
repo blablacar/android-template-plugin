@@ -55,12 +55,12 @@ fun RecipeExecutor.standaloneViewModelTemplateRecipe(
     createStandaloneViewModel(packageName = packageName, viewModelName= viewModelName).saveClass(
         pfm.getPath(),
         packageName,
-        viewModelName.asKt()
+       " ${viewModelName}ViewModel".asKt()
     )
     createViewModelFactory(packageName=packageName, viewModelName = viewModelName).saveClass(
         pfm.getPath(),
         packageName,
-        "${viewModelName}Factory".asKt()
+        "${viewModelName}ViewModelFactory".asKt()
     )
 }
 
