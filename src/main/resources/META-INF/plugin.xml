@@ -11,15 +11,11 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.androidstudio</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.comuto.androidtemplates.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.comuto.androidtemplates.services.MyProjectService"/>
-    </extensions>
     <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
-        <wizardTemplateProvider implementation="com.comuto.androidtemplates.WizardTemplateProviderImpl" />
+        <wizardTemplateProvider implementation="com.comuto.androidtemplates.templates.WizardTemplateProviderImpl" />
     </extensions>
     <applicationListeners>
-        <listener class="com.comuto.androidtemplates.listeners.MyProjectManagerListener"
+        <listener class="com.comuto.androidtemplates.listeners.TemplatePluginManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>
