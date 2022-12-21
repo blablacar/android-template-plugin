@@ -28,8 +28,6 @@ class $activityName() : PixarActivityV2() {
 
     private var _binding: ${layoutName.toCamelCase().replace("_", "")}Binding? = null
     private val binding get() = _binding!!
-    
-    override fun getScreenName(): String = TODO()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         TODO() //Add this activity to a manifest
@@ -48,6 +46,8 @@ class $activityName() : PixarActivityV2() {
             .build()
             .inject(this)
     }
+    
+    override fun getScreenName(): String = TODO()
     
     companion object {}
 }
