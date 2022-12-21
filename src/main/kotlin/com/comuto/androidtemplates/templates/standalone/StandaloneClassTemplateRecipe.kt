@@ -80,7 +80,11 @@ fun RecipeExecutor.standaloneActivityTemplateRecipe(
     val pfm = ProjectFileManager(project, moduleData, packageName)
     if (pfm.init().not()) return
 
-    createStandaloneActivity(packageName = packageName, activityName = activityName, layoutName = layoutName).saveClass(
+    createStandaloneActivity(
+        packageName = packageName,
+        activityName = activityName,
+        layoutName = layoutName
+    ).saveClass(
         pfm.getPath(),
         packageName,
         activityName.asKt()

@@ -10,6 +10,6 @@ class WizardTemplateProviderImpl : WizardTemplateProvider() {
     override fun getTemplates(): List<Template> = listOf(
         fragment,
         viewModel,
-        activity
+        activity,
     )
 }
