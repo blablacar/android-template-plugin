@@ -128,3 +128,35 @@ val activity
         }
     }
 
+
+
+
+val test
+    get()= template {
+            name = "Test Standalone"
+            description = "Create a test class with the necessary"
+            minApi = 21
+            category = Category.Fragment
+            formFactor = FormFactor.Mobile
+            screens = listOf(WizardUiContext.MenuEntry)
+
+            val packageNameParam = defaultPackageNameParameter
+            val className = stringParameter {
+                name = "Test class name E.G MyFeatureTest"
+                default = "MyFeatureTest"
+                help = "Use the class name for prefix"
+                constraints = listOf(Constraint.NONEMPTY)
+            }
+            widgets(
+                PackageNameWidget(packageNameParam),
+                TextFieldWidget(className),
+            )
+
+            recipe = { data: TemplateData ->
+                standaloneTest(
+                    data as ModuleTemplateData,
+                    packageNameParam.value,
+                    className.value
+                )
+            }
+    }

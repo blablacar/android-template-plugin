@@ -32,6 +32,11 @@ fun String.saveClass(srcDir: PsiDirectory, subDirPath: String, fileName: String)
     save(srcDir,fullSubDir,fileName,this)
 }
 
+fun String.saveTestClass(srcDir: PsiDirectory,subDirPath: String,fileName: String){
+    val fullSubDir="/kotlin.$subDirPath"
+    save(srcDir,fullSubDir,fileName,this)
+}
+
 
 fun List<String>.toDir(srcDir: PsiDirectory): PsiDirectory {
     var result = srcDir

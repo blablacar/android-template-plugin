@@ -9,6 +9,8 @@ import com.comuto.androidtemplates.manager.addPackageName
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneActivity
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneFragment
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneFragmentLayoutXML
+import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneLayoutXML
+import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneTest
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneViewModel
 import com.comuto.androidtemplates.templates.standalone.klass.createActivitySubComponent
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneActivityLayoutXML
@@ -16,6 +18,7 @@ import com.comuto.androidtemplates.templates.standalone.klass.createViewModelFac
 import com.comuto.androidtemplates.utils.asKt
 import com.comuto.androidtemplates.utils.asXml
 import com.comuto.androidtemplates.utils.saveClass
+import com.comuto.androidtemplates.utils.saveTestClass
 import com.comuto.androidtemplates.utils.saveXML
 
 fun RecipeExecutor.standaloneFragmentTemplateRecipe(
@@ -100,3 +103,22 @@ fun RecipeExecutor.standaloneActivityTemplateRecipe(
     ).saveClass(pfm.getPath(), injectionPackage, subComponentName.asKt())
 }
 
+fun RecipeExecutor.standaloneTest(
+    moduleData: ModuleTemplateData,
+    packageName: String,
+    testClassName: String,
+) {
+    val (projectData, _, _, manifestOut) = moduleData
+    val project = TemplatePluginManagerListener.projectInstance ?: return
+    addAllKotlinDependencies(moduleData)
+    addPackageName(packageName, projectData.applicationPackage.toString())
+
+    val pfm = ProjectFileManager(project, moduleData, packageName)
+    if (pfm.init().not()) return
+
+    createStandaloneTest(packageName = packageName, testClassName = testClassName).saveTestClass(
+        pfm.getTestPath(),
+        packageName,
+         testClassName.asKt()
+    )
+}
