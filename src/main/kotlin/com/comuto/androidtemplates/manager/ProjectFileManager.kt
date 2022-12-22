@@ -23,18 +23,22 @@ class ProjectFileManager(
 ) {
 
     private val path: String = moduleData.srcDir.path.removeSuffix("/java/${packageName.replace(".", "/")}")
-
+    private val testPath: String = "${moduleData.srcDir.path.removeSuffix("/main/java/${packageName.replace(".", "/")}")}/test"
     private val virtualFiles = ProjectRootManager.getInstance(project).contentRootsFromAllModules
     private val relativePaths = listOf(path)
 
     private var resources: Triple<Path, PsiDirectory?, String> = Triple(Path.APP, null, path)
-
+    private var testRessource: Triple<Path, PsiDirectory?, String> = Triple(Path.APP, null, testPath)
     fun getPath() = resources.second!!
+    fun getTestPath() = testRessource.second!!
 
     fun init(): Boolean {
         relativePaths.forEachIndexed { _, path ->
             virtualFile(virtualFiles, path)?.let {
                 resources = resources.copy(second = PsiManager.getInstance(project).findDirectory(it))
+            }
+            virtualFile(virtualFiles,testPath)?.let{
+                testRessource = testRessource.copy(second = PsiManager.getInstance(project).findDirectory(it))
             }
         }
         return true
