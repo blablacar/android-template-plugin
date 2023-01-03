@@ -1,0 +1,89 @@
+task letsgo(dependsOn: ['lint', 'publish']) {
+    doFirst {
+        println 'Let\'s go template plugin !'
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = GROUP
+            artifactId = ARTIFACT_ID
+            version = isReleaseBuild() ? VERSION_NAME : VERSION_NAME + generateSnapshotSuffix()
+
+            afterEvaluate {
+                artifact bundleReleaseAar
+                artifact sourcesJar
+            }
+
+            pom {
+                name = PROJECT_NAME
+                description = PROJECT_DESCRIPTION
+                url = WEBSITE_URL
+                packaging = PACKAGING
+                groupId = GROUP
+                artifactId = ARTIFACT_ID
+                developers {
+                    developer {
+                        id = DEVELOPER_ID
+                        name = DEVELOPER_NAME
+                        email = DEVELOPER_EMAIL
+                    }
+                }
+                scm {
+                    connection = SCM_CONNECTION
+                    developerConnection = SCM_CONNECTION
+                    url = WEBSITE_URL
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name "githubBlablacar"
+            url "https://maven.pkg.github.com/blablacar/java-packages"
+            credentials(PasswordCredentials)
+        }
+    }
+}
+
+tasks.withType(AbstractPublishToMaven) {
+    doLast {
+        def name = "${publication.groupId}:${publication.artifactId}:${publication.version}"
+        if (it instanceof PublishToMavenRepository) {
+            println "******************** Published $name to ${repository.url} *****************"
+        } else if (it instanceof PublishToMavenLocal) {
+            println "******************** Published $name to local repository  *****************"
+        }
+    }
+}
+
+static def generateSnapshotSuffix() {
+    return "-" + new Date().format("yyyyMMddHHmmssSSS", TimeZone.getTimeZone("UTC")) + "-SNAPSHOT"
+}
+
+def isReleaseBuild() {
+    return project.hasProperty('env') && project.property('env') == "RELEASE"
+}

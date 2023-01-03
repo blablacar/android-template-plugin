@@ -1,0 +1,34 @@
+#!/usr/bin/env groovy
+final String mainBranch = 'master'
+
+pipeline {
+    agent {
+        docker {
+            label 'docker'
+            image 'eu.gcr.io/bbc-registry/android:1.20201108.114924-6c08d93'
+            args '-v ${HOME}/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro'
+        }
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: "10"))
+        timeout(time: 60, unit: 'MINUTES')
+    }
+
+    stages {
+        stage('Compile and publish a version') {
+            environment {
+                GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=no'
+                GIT_AUTHOR_NAME = 'Jenkins'
+                EMAIL = 'svc-git@blablacar.com'
+            }
+            steps {
+                sshagent(credentials: ['github-blablacarbot-ssh']) {
+                    sh 'git fetch origin'
+                    sh "git checkout ${mainBranch}"
+                    sh "./gradlew clean letsgo \'-Penv=RELEASE\' --rerun-tasks"
+                }
+            }
+        }
+    }
+}
