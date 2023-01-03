@@ -6,22 +6,10 @@ task letsgo(dependsOn: ['lint', 'publish']) {
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+    from java.sourceSets.main.java.srcDirs
 }
 
 artifacts {
-    archives javadocJar
     archives sourcesJar
 }
 
@@ -50,11 +38,6 @@ publishing {
                         name = DEVELOPER_NAME
                         email = DEVELOPER_EMAIL
                     }
-                }
-                scm {
-                    connection = SCM_CONNECTION
-                    developerConnection = SCM_CONNECTION
-                    url = WEBSITE_URL
                 }
             }
         }
