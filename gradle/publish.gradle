@@ -1,7 +1,8 @@
-task letsgo(dependsOn: ['lint', 'publish']) {
+task letsgo(dependsOn: ['publish']) {
     doFirst {
         println 'Let\'s go template plugin !'
     }
+
 }
 
 task sourcesJar(type: Jar) {
@@ -13,6 +14,13 @@ artifacts {
     archives sourcesJar
 }
 
+
+def xmlFile = layout.projectDirectory.file('updatePlugins.xml')
+println "gooo ${xmlFile}"
+def xmlArtifact = artifacts.add('archives', xmlFile.get().asFile) {
+    type 'xml'
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -20,15 +28,14 @@ publishing {
             artifactId = ARTIFACT_ID
             version = isReleaseBuild() ? VERSION_NAME : VERSION_NAME + generateSnapshotSuffix()
 
-            afterEvaluate {
-                artifact bundleReleaseAar
-                artifact sourcesJar
-            }
+
+            from components.java
+
+            artifact xmlArtifact
 
             pom {
                 name = PROJECT_NAME
                 description = PROJECT_DESCRIPTION
-                url = WEBSITE_URL
                 packaging = PACKAGING
                 groupId = GROUP
                 artifactId = ARTIFACT_ID
@@ -44,15 +51,26 @@ publishing {
     }
 
     repositories {
+        mavenLocal()
+        /*
+        flatDir {
+            dirs "${project.rootDir}/libs"
+        }
+
+         */
+       /*
         maven {
             name "githubBlablacar"
             url "https://maven.pkg.github.com/blablacar/java-packages"
             credentials(PasswordCredentials)
         }
+        */
     }
 }
 
 tasks.withType(AbstractPublishToMaven) {
+
+
     doLast {
         def name = "${publication.groupId}:${publication.artifactId}:${publication.version}"
         if (it instanceof PublishToMavenRepository) {
