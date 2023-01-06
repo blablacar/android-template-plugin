@@ -1,8 +1,27 @@
+def xmlFile = layout.projectDirectory.file('updatePlugins.xml')
+def xmlArtifact = artifacts.add('archives', xmlFile) {
+    type 'xml'
+}
+
 task letsgo(dependsOn: ['publish']) {
     doFirst {
         println 'Let\'s go template plugin !'
-    }
 
+        def text = 'Dear "$firstname $lastname",\nSo nice to meet you in <% print city %>.\nSee you in ${month},\n${signed}'
+
+        def binding = [
+            "plugin_url":TODO(),
+            "pluginVersion":pluginVersion,
+            "pluginSinceBuild":pluginSinceBuild,
+            "pluginUntilBuild":pluginUntilBuild
+        ]
+
+        def engine = new groovy.text.SimpleTemplateEngine()
+        def template = engine.createTemplate(text).make(binding)
+
+        def result = 'Dear "Sam Pullara",\nSo nice to meet you in San Francisco.\nSee you in December,\nGroovy-Dev'
+        println(result)
+    }
 }
 
 task sourcesJar(type: Jar) {
@@ -14,24 +33,20 @@ artifacts {
     archives sourcesJar
 }
 
-
-def xmlFile = layout.projectDirectory.file('updatePlugins.xml')
-println "gooo ${xmlFile}"
-def xmlArtifact = artifacts.add('archives', xmlFile.get().asFile) {
-    type 'xml'
-}
-
 publishing {
     publications {
+        maven(MavenPublication) {
+            artifact xmlArtifact
+            groupId = GROUP
+            artifactId = ARTIFACT_ID
+            version = "index"
+        }
         mavenJava(MavenPublication) {
             groupId = GROUP
             artifactId = ARTIFACT_ID
-            version = isReleaseBuild() ? VERSION_NAME : VERSION_NAME + generateSnapshotSuffix()
-
+            version = isReleaseBuild() ? pluginVersion : pluginVersion + generateSnapshotSuffix()
 
             from components.java
-
-            artifact xmlArtifact
 
             pom {
                 name = PROJECT_NAME
@@ -58,18 +73,17 @@ publishing {
         }
 
          */
-       /*
-        maven {
-            name "githubBlablacar"
-            url "https://maven.pkg.github.com/blablacar/java-packages"
-            credentials(PasswordCredentials)
-        }
-        */
+        /*
+         maven {
+             name "githubBlablacar"
+             url "https://maven.pkg.github.com/blablacar/java-packages"
+             credentials(PasswordCredentials)
+         }
+         */
     }
 }
 
 tasks.withType(AbstractPublishToMaven) {
-
 
     doLast {
         def name = "${publication.groupId}:${publication.artifactId}:${publication.version}"
