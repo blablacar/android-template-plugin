@@ -1,26 +1,35 @@
-def xmlFile = layout.projectDirectory.file('updatePlugins.xml')
-def xmlArtifact = artifacts.add('archives', xmlFile) {
-    type 'xml'
+
+def version = pluginVersion
+
+task fillTemplate {
+    // fill the updatePlugins template
+    String fileContents = new File('updatePlugins_template.xml').text
+
+    String fileUrl = "${repository_url}/com/comuto/android-template-plugin/android-template-plugin-${version}.jar"
+
+    def binding = [
+        "plugin_url":fileUrl,
+        "pluginVersion":pluginVersion,
+        "pluginSinceBuild":pluginSinceBuild,
+        "pluginUntilBuild":pluginUntilBuild
+    ]
+
+    def engine = new groovy.text.SimpleTemplateEngine()
+    def filledTemplate = engine.createTemplate(fileContents).make(binding)
+
+    def result = filledTemplate
+    def destFile = new File('updatePlugins_tmp.xml')
+    destFile.createNewFile()
+    destFile.text = result
 }
+
+tasks.publish.dependsOn(fillTemplate)
 
 task letsgo(dependsOn: ['publish']) {
     doFirst {
         println 'Let\'s go template plugin !'
 
-        def text = 'Dear "$firstname $lastname",\nSo nice to meet you in <% print city %>.\nSee you in ${month},\n${signed}'
 
-        def binding = [
-            "plugin_url":TODO(),
-            "pluginVersion":pluginVersion,
-            "pluginSinceBuild":pluginSinceBuild,
-            "pluginUntilBuild":pluginUntilBuild
-        ]
-
-        def engine = new groovy.text.SimpleTemplateEngine()
-        def template = engine.createTemplate(text).make(binding)
-
-        def result = 'Dear "Sam Pullara",\nSo nice to meet you in San Francisco.\nSee you in December,\nGroovy-Dev'
-        println(result)
     }
 }
 
@@ -35,16 +44,22 @@ artifacts {
 
 publishing {
     publications {
+        def xmlFile = layout.projectDirectory.file('updatePlugins_tmp.xml')
+        def xmlArtifact = artifacts.add('archives', xmlFile) {
+            type 'xml'
+        }
+
         maven(MavenPublication) {
             artifact xmlArtifact
             groupId = GROUP
             artifactId = ARTIFACT_ID
             version = "index"
         }
+
         mavenJava(MavenPublication) {
             groupId = GROUP
             artifactId = ARTIFACT_ID
-            version = isReleaseBuild() ? pluginVersion : pluginVersion + generateSnapshotSuffix()
+            version = version
 
             from components.java
 
@@ -76,7 +91,7 @@ publishing {
         /*
          maven {
              name "githubBlablacar"
-             url "https://maven.pkg.github.com/blablacar/java-packages"
+             url "{repository_ur}"
              credentials(PasswordCredentials)
          }
          */
@@ -93,12 +108,4 @@ tasks.withType(AbstractPublishToMaven) {
             println "******************** Published $name to local repository  *****************"
         }
     }
-}
-
-static def generateSnapshotSuffix() {
-    return "-" + new Date().format("yyyyMMddHHmmssSSS", TimeZone.getTimeZone("UTC")) + "-SNAPSHOT"
-}
-
-def isReleaseBuild() {
-    return project.hasProperty('env') && project.property('env') == "RELEASE"
 }
