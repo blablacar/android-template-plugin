@@ -1,5 +1,4 @@
-
-def version = pluginVersion
+def versionToDeploy = pluginVersion
 
 task fillTemplate {
     // fill the updatePlugins template
@@ -59,7 +58,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = GROUP
             artifactId = ARTIFACT_ID
-            version = version
+            version = versionToDeploy
 
             from components.java
 
@@ -81,20 +80,14 @@ publishing {
     }
 
     repositories {
+       /*
         mavenLocal()
-        /*
-        flatDir {
-            dirs "${project.rootDir}/libs"
-        }
-
-         */
-        /*
-         maven {
+        */
+        maven {
              name "githubBlablacar"
              url "{repository_ur}"
              credentials(PasswordCredentials)
          }
-         */
     }
 }
 
