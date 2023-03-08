@@ -8,9 +8,10 @@ import com.comuto.androidtemplates.manager.ProjectFileManager
 import com.comuto.androidtemplates.manager.addPackageName
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneActivity
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneFragment
-import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneLayoutXML
+import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneFragmentLayoutXML
 import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneViewModel
 import com.comuto.androidtemplates.templates.standalone.klass.createActivitySubComponent
+import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneActivityLayoutXML
 import com.comuto.androidtemplates.templates.standalone.klass.createViewModelFactory
 import com.comuto.androidtemplates.utils.asKt
 import com.comuto.androidtemplates.utils.asXml
@@ -37,7 +38,7 @@ fun RecipeExecutor.standaloneFragmentTemplateRecipe(
         className.asKt()
     )
 
-    createStandaloneLayoutXML().saveXML(pfm.getPath(), layoutName.asXml())
+    createStandaloneFragmentLayoutXML().saveXML(pfm.getPath(), layoutName.asXml())
 }
 
 fun RecipeExecutor.standaloneViewModelTemplateRecipe(
@@ -89,7 +90,7 @@ fun RecipeExecutor.standaloneActivityTemplateRecipe(
         packageName,
         activityName.asKt()
     )
-    createStandaloneLayoutXML().saveXML(pfm.getPath(), layoutName.asXml())
+    createStandaloneActivityLayoutXML().saveXML(pfm.getPath(), layoutName.asXml())
 
     createActivitySubComponent(
         packageName = packageName,

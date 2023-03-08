@@ -26,13 +26,12 @@ import com.comuto.coreui.PixarActivityV2
 )
 class $activityName() : PixarActivityV2() {
 
-    private var _binding: ${layoutName.toCamelCase().replace("_", "")}Binding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ${layoutName.toCamelCase().replace("_", "")}Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         TODO() //Add this activity to a manifest
         super.onCreate(savedInstanceState)
-        _binding = ${layoutName.toCamelCase().replace("_", "")}Binding.inflate(layoutInflater)
+        binding = ${layoutName.toCamelCase().replace("_", "")}Binding.inflate(layoutInflater)
         setContentView(binding.root)
         
         setSupportActionBar(toolbar)

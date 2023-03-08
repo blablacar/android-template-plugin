@@ -98,8 +98,8 @@ val activity
             constraints = listOf(Constraint.NONEMPTY)
         }
         val layoutName = stringParameter {
-            name = "Layout Name"
-            default = "layout_fragment_name"
+            name = "Activity Layout Name"
+            default = "activity_your_name"
             help = "Use the class name for prefix"
             constraints = listOf(Constraint.NONEMPTY)
         }
