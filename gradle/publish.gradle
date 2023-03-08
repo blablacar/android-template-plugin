@@ -1,6 +1,34 @@
-task letsgo(dependsOn: ['lint', 'publish']) {
+def versionToDeploy = pluginVersion
+
+task fillTemplate {
+    // fill the updatePlugins template
+    String fileContents = new File('updatePlugins_template.xml').text
+
+    String fileUrl = "${repository_url}/com/comuto/android-template-plugin/android-template-plugin-${version}.jar"
+
+    def binding = [
+        "plugin_url":fileUrl,
+        "pluginVersion":pluginVersion,
+        "pluginSinceBuild":pluginSinceBuild,
+        "pluginUntilBuild":pluginUntilBuild
+    ]
+
+    def engine = new groovy.text.SimpleTemplateEngine()
+    def filledTemplate = engine.createTemplate(fileContents).make(binding)
+
+    def result = filledTemplate
+    def destFile = new File('updatePlugins_tmp.xml')
+    destFile.createNewFile()
+    destFile.text = result
+}
+
+tasks.publish.dependsOn(fillTemplate)
+
+task letsgo(dependsOn: ['publish']) {
     doFirst {
         println 'Let\'s go template plugin !'
+
+
     }
 }
 
@@ -15,20 +43,28 @@ artifacts {
 
 publishing {
     publications {
+        def xmlFile = layout.projectDirectory.file('updatePlugins_tmp.xml')
+        def xmlArtifact = artifacts.add('archives', xmlFile) {
+            type 'xml'
+        }
+
+        maven(MavenPublication) {
+            artifact xmlArtifact
+            groupId = GROUP
+            artifactId = ARTIFACT_ID
+            version = "index"
+        }
+
         mavenJava(MavenPublication) {
             groupId = GROUP
             artifactId = ARTIFACT_ID
-            version = isReleaseBuild() ? VERSION_NAME : VERSION_NAME + generateSnapshotSuffix()
+            version = versionToDeploy
 
-            afterEvaluate {
-                artifact bundleReleaseAar
-                artifact sourcesJar
-            }
+            from components.java
 
             pom {
                 name = PROJECT_NAME
                 description = PROJECT_DESCRIPTION
-                url = WEBSITE_URL
                 packaging = PACKAGING
                 groupId = GROUP
                 artifactId = ARTIFACT_ID
@@ -44,15 +80,19 @@ publishing {
     }
 
     repositories {
+       /*
+        mavenLocal()
+        */
         maven {
-            name "githubBlablacar"
-            url "https://maven.pkg.github.com/blablacar/java-packages"
-            credentials(PasswordCredentials)
-        }
+             name "githubBlablacar"
+             url "{repository_ur}"
+             credentials(PasswordCredentials)
+         }
     }
 }
 
 tasks.withType(AbstractPublishToMaven) {
+
     doLast {
         def name = "${publication.groupId}:${publication.artifactId}:${publication.version}"
         if (it instanceof PublishToMavenRepository) {
@@ -61,12 +101,4 @@ tasks.withType(AbstractPublishToMaven) {
             println "******************** Published $name to local repository  *****************"
         }
     }
-}
-
-static def generateSnapshotSuffix() {
-    return "-" + new Date().format("yyyyMMddHHmmssSSS", TimeZone.getTimeZone("UTC")) + "-SNAPSHOT"
-}
-
-def isReleaseBuild() {
-    return project.hasProperty('env') && project.property('env') == "RELEASE"
 }

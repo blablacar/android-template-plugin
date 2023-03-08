@@ -15,10 +15,14 @@ plugins {
     id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
+
+    id("maven-publish")
 }
 
 group = properties("pluginGroup")
 version = properties("pluginVersion")
+
+apply(from="./gradle/publish.gradle")
 
 // Configure project's dependencies
 repositories {
