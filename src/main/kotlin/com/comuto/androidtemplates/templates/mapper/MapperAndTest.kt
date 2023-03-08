@@ -20,11 +20,6 @@ class $mapperName @Inject constructor() : Mapper<$fromType, $toType> {
                 TODO()
             )
         }
-        
-        
-    private fun $fromType.map(): $toType {
-        TODO()
-    }        
 }
 """.trimIndent()
 
@@ -48,16 +43,19 @@ class ${mapperName}Test {
     }
 
     @Test
-    fun map() {
+    fun TODO() {
+        // Given
+        TODO()
         
-        TODO()//val dataModel = mapper.map(ENTITY)
-        //assertEquals(DATA_MODEL, dataModel)
+        // When
+        val result = mapper.map(TODO())
+        
+        // Then
+        TODO()
     }
 
     companion object {
            TODO() // create your object in here 
     }
 }
-
-
 """.trimIndent()
