@@ -6,8 +6,8 @@ import com.android.tools.idea.wizard.template.impl.activities.common.addAllKotli
 import com.comuto.androidtemplates.listeners.TemplatePluginManagerListener
 import com.comuto.androidtemplates.manager.ProjectFileManager
 import com.comuto.androidtemplates.manager.addPackageName
-import com.comuto.androidtemplates.templates.standalone.klass.createStandaloneViewModel
-import com.comuto.androidtemplates.templates.standalone.klass.createViewModelFactory
+import com.comuto.androidtemplates.templates.mapper.klass.createMapper
+import com.comuto.androidtemplates.templates.mapper.klass.createMapperTest
 import com.comuto.androidtemplates.utils.asKt
 import com.comuto.androidtemplates.utils.saveClass
 import com.comuto.androidtemplates.utils.saveTestClass

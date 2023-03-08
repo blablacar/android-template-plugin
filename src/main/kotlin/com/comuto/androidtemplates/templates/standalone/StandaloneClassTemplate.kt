@@ -14,7 +14,7 @@ import com.android.tools.idea.wizard.template.template
 
 val fragment
     get() = template {
-        name = "Fragment Standalone"
+        name = "BBC Fragment Standalone"
         description = "Create the Fragment and his layout"
         minApi = 21
         category = Category.Fragment
@@ -53,7 +53,7 @@ val fragment
 
 val viewModel
     get() = template {
-        name = "ViewModel Standalone"
+        name = "BBC ViewModel Standalone"
         description = "Create the viewModel"
         minApi = 21
         category = Category.Fragment
@@ -83,7 +83,7 @@ val viewModel
 
 val activity
     get() = template {
-        name = "Activity Standalone"
+        name = "BBC Activity Standalone"
         description = "Create only an Activity"
         minApi = 21
         category = Category.Activity

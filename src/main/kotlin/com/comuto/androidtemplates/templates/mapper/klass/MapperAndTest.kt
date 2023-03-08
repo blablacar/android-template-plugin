@@ -1,4 +1,4 @@
-package com.comuto.androidtemplates.templates.mapper
+package com.comuto.androidtemplates.templates.mapper.klass
 
 import com.comuto.androidtemplates.manager.PackageManager
 
