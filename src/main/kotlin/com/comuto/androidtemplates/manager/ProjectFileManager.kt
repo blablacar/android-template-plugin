@@ -6,6 +6,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiManager
+import com.intellij.psi.impl.file.PsiDirectoryFactory
 
 enum class Path(val type: Int) {
     APP(0);
@@ -27,6 +28,7 @@ class ProjectFileManager(
     private val virtualFiles = ProjectRootManager.getInstance(project).contentRootsFromAllModules
     private val relativePaths = listOf(path)
 
+
     private var resources: Triple<Path, PsiDirectory?, String> = Triple(Path.APP, null, path)
     private var testRessource: Triple<Path, PsiDirectory?, String> = Triple(Path.APP, null, testPath)
     fun getPath() = resources.second!!
@@ -36,10 +38,10 @@ class ProjectFileManager(
         relativePaths.forEachIndexed { _, path ->
             virtualFile(virtualFiles, path)?.let {
                 resources = resources.copy(second = PsiManager.getInstance(project).findDirectory(it))
-            }
+            } ?: return false
             virtualFile(virtualFiles,testPath)?.let{
                 testRessource = testRessource.copy(second = PsiManager.getInstance(project).findDirectory(it))
-            }
+            } ?: return false
         }
         return true
     }
