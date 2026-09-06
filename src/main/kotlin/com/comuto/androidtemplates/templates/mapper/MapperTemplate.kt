@@ -15,7 +15,7 @@ import com.android.tools.idea.wizard.template.template
 val mapperAndTest
     get() = template {
         name = "BBC Mapper and Test"
-        description = "Create the Mapper class with the testClass"
+        description = "Create the Mapper class with the test class"
         minApi = 21
         category = Category.Fragment
         formFactor = FormFactor.Mobile

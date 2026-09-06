@@ -15,7 +15,7 @@ import com.android.tools.idea.wizard.template.template
 val fragment
     get() = template {
         name = "BBC Fragment Standalone"
-        description = "Create the Fragment and his layout"
+        description = "Create the Fragment and its layout"
         minApi = 21
         category = Category.Fragment
         formFactor = FormFactor.Mobile
@@ -62,7 +62,7 @@ val viewModel
 
         val packageNameParam = defaultPackageNameParameter
         val viewModelName = stringParameter {
-            name = "ViewModel Name but without ViewModel as a suffix, E.G MyFeature not MyFeatureViewModel"
+            name = "ViewModel Name but without ViewModel as a suffix, e.g. MyFeature not MyFeatureViewModel"
             default = "MyFeature"
             help = "Use the class name for prefix"
             constraints = listOf(Constraint.NONEMPTY)
@@ -105,7 +105,7 @@ val activity
         }
 
         val subComponentName = stringParameter {
-            name = "Set the SubComponent Name, E.G MyFeatureSubComponent"
+            name = "Set the SubComponent Name, e.g. MyFeatureSubComponent"
             default = "MyFeatureSubComponent"
             help = "Use the class name for prefix"
             constraints = listOf(Constraint.NONEMPTY)
